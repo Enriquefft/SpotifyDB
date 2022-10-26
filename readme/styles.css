@@ -1,0 +1,8 @@
+.PrimaryKey > text {
+  text-decoration: underline;
+}
+
+.WeakKey > text {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}

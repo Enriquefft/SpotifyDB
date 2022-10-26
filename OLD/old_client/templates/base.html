@@ -1,0 +1,82 @@
+
+{% set logo = url_for('static', filename='/files/icon.png') %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon", type="image/png" href="{{ logo }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/output.css') }}">
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+  </head>
+  <body>
+
+    <nav class="p-2 fixed w-full z-20 top-0">
+
+      <div class="container flex space-x-4 justify-between items-center mx-auto">
+
+        ## Logo
+        <a href="{{ url_for('home.index') }}" class="flex items-center shrink-0">
+          <img src="{{ logo }}" class="mr-3 h-6" alt="SPQL Logo">
+          <span class="self-center font-semibold text-xl">SpotifyDB</span>
+        </a>
+
+
+
+        <div class="justify-around items-center" id="navbar-sticky">
+          <ul class="flex flex-col p4">
+
+            <li>
+              <a href="/" class="" aria-current="page">Home</a>
+            </li>
+
+            {% if not current_user.is_authenticated %}
+
+            <li>
+              <a href="/login" class="">Login</a>
+            </li>
+
+            <li class="p5">
+              <a href="/register" class="">Register</a>
+            </li>
+
+            {% else %}
+
+
+            <li>
+              <a href="/buy" class="" aria-current="page">Buy permissions</a>
+            </li>
+
+            <li>
+              <a href="/about" class="" aria-current="page">About</a>
+            </li>
+
+
+            {% endif %}
+
+
+          </ul>
+        </div>
+
+        ## buttons
+        <div>
+          <button type="button" class="">Send query</button>
+          <button type="button" class="">Free premium</button>
+        </div>
+
+        <a href="{{ url_for('home.index') }}" class="shrink-0">
+          <img src="{{ current_user.img_url }}" class="h-6 w-6 rounded-lg" alt="Profile picture">
+        </a>
+
+
+      </div>
+    </nav>
+
+
+  <div style="margin-top:55px">
+  {% block content %}{% endblock %}
+  </div>
+  </body>
+</html>

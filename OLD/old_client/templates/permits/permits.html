@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+
+{% block title %}Permits{% endblock %}
+
+{% block content %}
+
+
+
+
+<ul>
+  <div>
+    {% for (permit, price) in missing_permits.items() %}
+      <li>{{ permit }}
+        <form action="/buy" method="post">
+          <button name="permit" value="{{ permit }}">BUY: {{ price }}</button>
+        </form>
+
+      </li>
+    {% endfor %}
+    
+  </div>
+
+  <div>
+    {% for (permit, price) in user_permits.items() %}
+      <li>{{ permit }} Owned </li>
+    {% endfor %}
+  </div>
+
+</ul>
+
+{% endblock %}

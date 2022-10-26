@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+
+    <form method="POST" action="/register">
+    {{ form.csrf_token }}
+    {% if form.errors %}
+      <ul class="errors">
+          {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+              {% for error in field_errors %}
+                  <li>{{ form[field_name].label }}: {{ error }}</li>
+              {% endfor %}
+          {% endfor %}
+      </ul>
+    {% endif %}
+        <div>{{ form.username.label }}: {{ form.username() }}</div>
+        <div>{{ form.password.label }}: {{ form.password() }}</div>
+        <input type="submit" value="Register"/>  
+    </form>
+  
+  </body>
+</html>

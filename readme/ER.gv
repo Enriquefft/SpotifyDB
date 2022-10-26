@@ -1,0 +1,115 @@
+graph ER {
+
+  stylesheet="styles.css"
+
+// Settings
+//###################################################
+
+    // Defaults
+    node [fontname="Helvetica,Arial,sans-serif", overlap=false]
+
+    // Entities
+    node [shape=box];
+    Users; Artists; Albums; Playlists;
+
+
+    // Relationships
+    node [shape=diamond,style=filled,color=lightgrey];
+    produces; participates_albums; participates_playlists;
+    likes; owns; follows_artists; follows_playlists; has_playlists;
+
+
+    // Attributes
+    node [shape=oval,style=filled,color=lightblue];
+    user_name; email; user_uri; has_img; user_sid; password_hash;                               // Users
+    artist_popularity; artist_name; artist_uri; genres_artist;       // Artist
+    track_name; track_uri; duration; is_explicit; track_popularity;   // Tracks
+    type; track_n; album_uri; album_name; restriction; genres_album;  // Albums
+    playlist_name; playlist_uri; is_public;                        // Playlists
+
+    // Primary Keys
+    node [shape=oval,style=filled,color=lightblue,class="PrimaryKey"];
+    user_id; artist_sid; album_sid; playlist_sid;
+
+    // Weak Keys
+    node [shape=oval,style=filled,color=lightblue,class="WeakKey"];
+    track_sid;
+
+    // Weak Entities
+    node [shape=box,peripheries=2,style="",color=black,class=""];
+    Tracks;
+
+    // Weak Relationships
+    node [shape=diamond,style=filled,color=lightgrey,peripheries=2,class=""];
+    has_albums;
+
+//###################################################
+
+    // Entities
+    Users
+    Artists
+    Tracks
+    Albums
+    Playlists
+
+    // Atributes
+
+    // Users
+    Users -- {user_name; email; user_uri; user_sid; has_img; user_id; password_hash}
+    // Artists
+    Artists -- {artist_popularity; artist_sid; artist_name; artist_uri; genres_artist}
+    // Tracks
+    Tracks -- {track_sid; track_name; track_uri; duration; is_explicit; track_popularity}
+    // Albums
+    Albums -- {type; track_n; album_sid; album_uri; album_name; restriction; genres_album}
+    // Playlists
+    Playlists -- {playlist_sid; playlist_name; playlist_uri; is_public}
+
+    // Relationships
+
+    likes // Users -- likes -- Tracks
+    owns // Users -- owns -- Playlists
+    follows_playlists [label="follows"] // Users -- follows -- Playlists
+    follows_artists [label="follows"] // Users -- follows -- Artists
+
+    produces // Artists -- produces -- Tracks
+    participates_playlists [label="participates"] // Artists -- participates -- Playlists
+    participates_albums  [label="participates"] // Artists -- participates -- Albums
+
+    has_albums [label="has"] // Albums -- has -- Tracks
+    has_playlists [label="has"] // Playlists -- has -- Tracks
+
+
+    // 0 - n
+    Users -- likes
+    Tracks -- likes
+    Users -- follows_playlists
+    Playlists -- follows_playlists
+    Users -- follows_artists
+    Artists -- follows_artists
+
+    Users -- owns
+
+    Artists -- produces
+    Artists -- participates_playlists
+    Artists -- participates_albums
+
+    Tracks -- has_playlists
+
+    // 1 - 1
+    edge [dir = forward, color = "black:invis:black"];
+    Playlists -- owns;
+
+    // 1 - n
+    edge [color = "black:invis:black"];
+    Tracks -- produces;
+    Playlists -- participates_playlists;
+    Albums -- participates_albums;
+
+    Tracks -- has_albums;
+
+    Albums -- has_albums;
+    Playlists -- has_playlists;
+
+    // 0 - 1
+}
