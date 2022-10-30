@@ -1,1 +1,6 @@
 .vercel
+./webapp/node_modules/
+
+# Editors
+.idea
+.vscode

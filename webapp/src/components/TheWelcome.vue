@@ -9,9 +9,7 @@ import SupportIcon from "./icons/IconSupport.vue";
 
 <template>
   <WelcomeItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
+    <template #icon><DocumentationIcon /></template>
     <template #heading>Documentation</template>
 
     Vue’s
