@@ -1,5 +1,5 @@
 try:
-    from .Constants import CLIENT_ID, CLIENT_SECRET, INIT_URI, SECRET_KEY
+    from Constants import CLIENT_ID, CLIENT_SECRET, INIT_URI, SECRET_KEY
 except ImportError:
     from sys import exit
     exit("Please, ensure you have a Constants.py file with the CLIENT_ID, CLIENT_SECRET And INIT_URI variables.")
