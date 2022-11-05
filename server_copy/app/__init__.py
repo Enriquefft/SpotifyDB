@@ -1,32 +1,36 @@
 # Flask utils
-from app.models.user import User
-from flask import Flask, current_app
-from flask_restful import Api, Resource
-from Config import devConf
-
-from app.models import db  # , User
+from flask import Flask
 
 
-def create_app(config_class=devConf):
+def create_app(config_class='Dev'):
+
+    verifyConfClass(config_class)
+
+    from app.models import db
 
     # Jinja inline comments
     Flask.jinja_options = {'line_comment_prefix': '##'}
 
     app = Flask(__name__)
-    app.config.from_object(config_class)
-
-    api = Api(app)
+    app.config.from_object(f'app.Config.{config_class}Config')
 
     db.init_app(app)
 
-    class Hello(Resource):
+    # Blueprints
+    from app.resources.blueprints import user_bp
+    app.register_blueprint(user_bp)
 
-        def get(self):
-            usr = User(username='namfijefeeffefeoiaffeaojfeafeafiefjafijafeoe',
-                       pass_hash='hasefefaafeffafefeaefiaefaj_pasfeiafjaos')
-            print(usr.insert())
-            return {'helo': 'world'}
-
-    api.add_resource(Hello, '/')
-    # API Resources
     return app
+
+
+# Move to utils.py?
+def verifyConfClass(config_class):
+    options = ['Dev', 'Prod']
+    if config_class not in options:
+
+        from click import BadParameter
+        from sys import exit
+
+        BadParameter(
+            f"\n'{config_class}' config setup not available.\nAvailable options are:\n{[x for x in options]}").show()
+        exit()
