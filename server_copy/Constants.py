@@ -9,5 +9,7 @@ PASSWORD = 'Ep1w08kk05c'
 
 SECRET_KEY = 'e5e6ec373709e6ed1dc0e6389b5ccb92b40a204e7ba5995a08d80afc6c2012bc'
 
+JWT_SECRET_KEY = '8I5.Su{-~Az5Qi:prm/&#NOtm66lv{(:_C(24}8axp$LGSUEq]Nf^2'
+
 # Tesing DB
 #TEST_INIT_URI = 'postgresql:///test?host=%2Ftmp%2Fephemeralpg.'

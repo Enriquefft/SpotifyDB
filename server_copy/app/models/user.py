@@ -29,16 +29,17 @@ class User(db.Model, UserMixin):  # type: ignore
     refresh_token = db.Column(db.String(256), nullable=True, unique=True)
     img_url = db.Column(db.String(256), nullable=True, unique=False)
 
+    def validate_password(self, password):
+        from werkzeug.security import check_password_hash
+        return check_password_hash(self.pass_hash, password)
+
     def add_permit(self, permit):
 
-        if (permit + ' ') not in self.permits and permit in PERMIT_LIST.keys():
+        if permit not in self.permits and permit in PERMIT_LIST.keys():
             self.permits += (permit + ' ')
             self.update()
         else:
-            assert False, "Error"
-
-    def get_id(self):
-        return str(self.id)
+            return False
 
     def has_authorized(self):
         if self.sp_id and self.sp_uri and self.sp_username and self.refresh_token:

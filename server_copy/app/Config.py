@@ -1,5 +1,5 @@
 try:
-    from Constants import CLIENT_ID, CLIENT_SECRET, INIT_URI, SECRET_KEY
+    from Constants import CLIENT_ID, CLIENT_SECRET, INIT_URI, SECRET_KEY, JWT_SECRET_KEY
 except ImportError:
     from sys import exit
     exit("Please, ensure you have a Constants.py file with the CLIENT_ID, CLIENT_SECRET And INIT_URI variables.")
@@ -11,6 +11,8 @@ class BaseConfig:
     CLIENT_ID = CLIENT_ID
     CLIENT_SECRET = CLIENT_SECRET
     SECRET_KEY = SECRET_KEY
+    BUNDLE_ERRORS = True  # error handling as bundle
+    JWT_SECRET_KEY = JWT_SECRET_KEY
 
     #CORS_HEADERS = "Content-Type"
 

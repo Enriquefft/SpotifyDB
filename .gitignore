@@ -1,5 +1,6 @@
 .vercel
 ./webapp/node_modules/
+./Brunchs/node_modules/
 
 # Editors
 .idea

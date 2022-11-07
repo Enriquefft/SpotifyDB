@@ -6,15 +6,17 @@ def create_app(config_class='Dev'):
 
     verifyConfClass(config_class)
 
-    from app.models import db
-
     # Jinja inline comments
     Flask.jinja_options = {'line_comment_prefix': '##'}
-
     app = Flask(__name__)
+
     app.config.from_object(f'app.Config.{config_class}Config')
 
+    from app.models import db
     db.init_app(app)
+
+    from flask_jwt_extended import JWTManager
+    jwt = JWTManager(app)
 
     # Blueprints
     from app.resources.blueprints import user_bp
