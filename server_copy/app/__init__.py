@@ -18,6 +18,9 @@ def create_app(config_class='Dev'):
     from flask_jwt_extended import JWTManager
     jwt = JWTManager(app)
 
+    from flask_cors import CORS
+    CORS(app)
+
     # Blueprints
     from app.resources.blueprints import user_bp
     app.register_blueprint(user_bp)
