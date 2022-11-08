@@ -1,6 +1,6 @@
-from flask_restful import Resource, abort, reqparse
-
 from app.models.user import User
+
+from flask_restful import Resource, abort, reqparse
 
 from flask_jwt_extended import create_access_token
 
@@ -25,4 +25,4 @@ class login(Resource):
         return {
             'username': user.username,
             'access_token': create_access_token(user.id)
-        }
+        }, 201
