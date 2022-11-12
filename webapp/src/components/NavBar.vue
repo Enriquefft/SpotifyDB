@@ -8,8 +8,8 @@
 
     <nav class="w-full">
       <ul class="flex mx-auto justify-around">
-        <li v-for="link in links" :key="link.id">
-          <router-link :to="link.route">{{ link.label }}</router-link>
+        <li v-for="link in links" :key="link">
+          <router-link :to="{ name: link }">{{ link }}</router-link>
         </li>
       </ul>
     </nav>
@@ -27,18 +27,8 @@
   </header>
 </template>
 
-<script lang="ts">
-type Link = {
-  id: number;
-  label: string;
-  icon: string;
-  route: string;
-};
-
-interface NavBarProps {
-  links: Link[];
-}
-</script>
 <script setup lang="ts">
-defineProps<NavBarProps>();
+defineProps<{
+  links: string[];
+}>();
 </script>

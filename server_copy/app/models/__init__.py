@@ -10,14 +10,8 @@ class Model(model.Model):
         try:
             db.session.add(self)
             db.session.commit()
-            #id = self.id
-            print('inserted')
-            print('self:\n')
-            print(self)
-            print('\n')
             return self.format()
         except Exception as e:
-            print('error: ', e)
             db.session.rollback()
             return None
         finally:

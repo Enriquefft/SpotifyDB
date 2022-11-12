@@ -11,7 +11,7 @@ class login(Resource):
     parser.add_argument('username', required=True, nullable=False)
     parser.add_argument('password', required=True, nullable=False)
 
-    def put(self):
+    def post(self):
 
         data = self.parser.parse_args(strict=True)
         user = User.query.filter_by(username=data.get('username')).scalar()
@@ -25,4 +25,4 @@ class login(Resource):
         return {
             'username': user.username,
             'access_token': create_access_token(user.id)
-        }, 201
+        }, 200

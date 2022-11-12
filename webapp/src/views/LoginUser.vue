@@ -1,10 +1,23 @@
 <template>
   <form @submit.prevent="login">
     <label for="username">Username</label>
-    <input type="text" v-model="username" placeholder="username" />
+    <input
+      v-model="username"
+      id="username"
+      type="text"
+      placeholder="username"
+    />
     <br />
     <label for="password">Username</label>
-    <input v-model="password" placeholder="password" type="password" />
+    <input
+      v-model="password"
+      id="password"
+      type="password"
+      placeholder="password"
+    />
+    <br />
+    <label for="remember_me">Remember me</label>
+    <input v-model="rememberMe" id="remember_me" type="checkbox" />
     <br />
     <button type="submit">Login</button>
     <br />
@@ -15,28 +28,27 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
-const username = ref("");
-const password = ref("");
+const username: string = "";
+const password: string = "";
+const rememberMe: boolean = false;
 
-function login() {
-  console.log("login");
-  fetch("http://127.0.0.1:5000/", {
-    method: "PUT",
-
-    headers: {
-      "Content-Type": "application/json",
-    },
-
+async function login() {
+  await fetch("http://127.0.0.1:5000/login", {
+    method: "POST",
     body: JSON.stringify({
-      username: username.value,
-      password: password.value,
+      username: username,
+      password: password,
     }),
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-    });
+      data.remember_user = rememberMe;
+      const user = useUserStore();
+      user.login(data);
+    })
+    // catch errors
+    .catch((error) => console.error(error));
 }
 </script>

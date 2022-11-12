@@ -1,28 +1,16 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
+import { routes } from "@/router/index";
 </script>
 
 <script lang="ts">
-// define array of link objects
-const links = [
-  {
-    id: 0,
-    label: "Home",
-    icon: ".",
-    route: "/",
-  },
-  {
-    id: 1,
-    label: "Home2",
-    icon: "2",
-    route: "/",
-  },
-];
+// get list of route names
+let routeNames = routes.map((route) => route.name);
 </script>
 
 <template>
-  <NavBar :links="links" />
+  <NavBar :links="routeNames" />
   <RouterView />
   <FooterBar />
 </template>

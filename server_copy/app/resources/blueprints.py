@@ -10,4 +10,4 @@ user_bp = Blueprint('users', __name__)
 user_api = Api(user_bp)
 
 
-user_api.add_resource(login, '/')
+user_api.add_resource(login, '/login')
