@@ -1,9 +1,11 @@
-./webapp/.vercel
-./webapp/node_modules
-./webapp/node_modules/
-./server_copy/Constants.py
-./server/Constants.py
+webapp/.vercel
+webapp/node_modules
+webapp/node_modules/
+server_copy/Constants.py
+server/Constants.py
 
+webapp/node_modules
+.vercel
 
 # Editors
 .idea
