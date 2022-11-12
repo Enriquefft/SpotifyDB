@@ -29,22 +29,24 @@
 
 <script lang="ts" setup>
 import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
+import type { Ref } from "vue";
 
-const username: string = "";
-const password: string = "";
-const rememberMe: boolean = false;
+const username: Ref<string> = ref("");
+const password: Ref<string> = ref("");
+const rememberMe: Ref<boolean> = ref(false);
 
 async function login() {
   await fetch("http://127.0.0.1:5000/login", {
     method: "POST",
     body: JSON.stringify({
-      username: username,
-      password: password,
+      username: username.value,
+      password: password.value,
     }),
   })
     .then((res) => res.json())
     .then((data) => {
-      data.remember_user = rememberMe;
+      data.remember_user = rememberMe.value;
       const user = useUserStore();
       user.login(data);
     })
