@@ -1,6 +1,5 @@
 from . import db
 from sqlalchemy_utils import EmailType
-from flask_login import UserMixin
 
 PERMIT_LIST = {
     #  CRUD
@@ -11,7 +10,7 @@ PERMIT_LIST = {
 }
 
 
-class User(db.Model, UserMixin):  # type: ignore
+class User(db.Model):  # type: ignore
     __tablename__ = 'users'
 
     # Application data
@@ -52,8 +51,8 @@ class User(db.Model, UserMixin):  # type: ignore
 
     def RefreshAccesToken(self):
 
-        if not self.has_authorized() or not self.is_active:
-            exit()
+        if not self.has_authorized():
+            raise Exception("user is not spotify authorized")
 
         from flask import current_app
         CLIENT_ID = current_app.config['CLIENT_ID']
@@ -79,7 +78,6 @@ class User(db.Model, UserMixin):  # type: ignore
 
         if post_request.status_code != 200:
             raise Exception("Error")
-            pass
 
         from flask import session
         session['access_token'] = response['access_token']

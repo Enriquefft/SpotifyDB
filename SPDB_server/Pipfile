@@ -9,14 +9,13 @@ requests = "*"
 flask-sqlalchemy = "*"
 flask-cors = "*"
 flask-migrate = "*"
-psycopg2 = "*"
 sqlalchemy-utils = "*"
-flask-wtf = "*" #Advanced forms validation
-flask-login = "*"
 flask-restful = "*"
 flask-jwt-extended = "*"
+psycopg2 = "*"
 
 [dev-packages]
+pip-chill = "*" #pip-chill --no-chill > requirements.txt
 
 [requires]
-python_version = "3.10"
+python_version = "3.11"
