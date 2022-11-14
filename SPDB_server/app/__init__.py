@@ -22,8 +22,9 @@ def create_app(config_class='Dev'):
     CORS(app)
 
     # Blueprints
-    from app.resources.blueprints import user_bp
+    from app.resources.blueprints import user_bp, home_bp
     app.register_blueprint(user_bp)
+    app.register_blueprint(home_bp)
 
     return app
 

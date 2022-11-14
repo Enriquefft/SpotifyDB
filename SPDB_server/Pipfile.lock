@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "819474f7df0fed1f329ca69278b6bff23f3992ca78b517bbeb1c42bfa16f5dec"
+            "sha256": "70df8e9c499da9b0b70f289a660a6e0453039de8b733c0c12a624d9ead8b1b0b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -169,6 +169,14 @@
             "markers": "python_version >= '3' and platform_machine == 'aarch64' or (platform_machine == 'ppc64le' or (platform_machine == 'x86_64' or (platform_machine == 'amd64' or (platform_machine == 'AMD64' or (platform_machine == 'win32' or platform_machine == 'WIN32')))))",
             "version": "==2.0.1"
         },
+        "gunicorn": {
+            "hashes": [
+                "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e",
+                "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"
+            ],
+            "index": "pypi",
+            "version": "==20.1.0"
+        },
         "idna": {
             "hashes": [
                 "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4",
@@ -289,6 +297,14 @@
             "index": "pypi",
             "version": "==2.28.1"
         },
+        "setuptools": {
+            "hashes": [
+                "sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31",
+                "sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==65.5.1"
+        },
         "six": {
             "hashes": [
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
@@ -367,6 +383,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.2.2"
+        },
+        "wheel": {
+            "hashes": [
+                "sha256:965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac",
+                "sha256:b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8"
+            ],
+            "index": "pypi",
+            "version": "==0.38.4"
         }
     },
     "develop": {

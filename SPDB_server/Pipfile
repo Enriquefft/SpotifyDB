@@ -13,6 +13,8 @@ sqlalchemy-utils = "*"
 flask-restful = "*"
 flask-jwt-extended = "*"
 psycopg2 = "*"
+wheel = "*"
+gunicorn = "*"
 
 [dev-packages]
 pip-chill = "*" #pip-chill --no-chill > requirements.txt
