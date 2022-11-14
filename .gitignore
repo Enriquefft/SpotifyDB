@@ -6,6 +6,7 @@ server_copy/Constants.py
 server/Constants.py
 
 webapp/node_modules
+webapp/dist
 .vercel
 
 # Editors

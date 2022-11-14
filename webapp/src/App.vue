@@ -5,12 +5,13 @@ import { routes } from "@/router/index";
 </script>
 
 <script lang="ts">
-// get list of route names
-let routeNames = routes.map((route) => route.name);
+let accessRoutes = routes.map((route) => {
+  return { name: route.name, restrictions: route.restrictions };
+});
 </script>
 
 <template>
-  <NavBar :links="routeNames" />
+  <NavBar :links="accessRoutes" />
   <RouterView />
   <FooterBar />
 </template>

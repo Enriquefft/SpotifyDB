@@ -39,12 +39,20 @@ const rememberMe: Ref<boolean> = ref(false);
 async function login() {
   await fetch("http://127.0.0.1:5000/login", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       username: username.value,
       password: password.value,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
+    })
     .then((data) => {
       data.remember_user = rememberMe.value;
       const user = useUserStore();
