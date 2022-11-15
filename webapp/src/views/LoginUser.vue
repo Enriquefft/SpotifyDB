@@ -31,13 +31,14 @@
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import type { Ref } from "vue";
+import { API_LOCATION } from "@/../config";
 
 const username: Ref<string> = ref("");
 const password: Ref<string> = ref("");
 const rememberMe: Ref<boolean> = ref(false);
 
 async function login() {
-  await fetch("http://127.0.0.1:5000/login", {
+  await fetch(API_LOCATION, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

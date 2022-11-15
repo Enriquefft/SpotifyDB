@@ -1,0 +1,3 @@
+[submodule "SPDB-server"]
+	path = SPDB-server
+	url = git@github.com:Enriquefft/SPDB-server.git

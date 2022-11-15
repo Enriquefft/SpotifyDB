@@ -2,13 +2,14 @@
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import type { Ref } from "vue";
+import { API_LOCATION } from "@/../config";
 
 const username: Ref<string> = ref("");
 const password: string = "";
 
 function register() {
   console.log(password);
-  fetch("http://127.0.0.1:5000/register", {
+  fetch(API_LOCATION, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
