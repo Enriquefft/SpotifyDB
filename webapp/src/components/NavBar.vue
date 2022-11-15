@@ -1,4 +1,4 @@
-<template class>
+<template>
   <header class="flex flex-row mx-auto items-center bg-gray-800">
     <div class="left-0 flex">
       <picture> </picture>
