@@ -9,7 +9,7 @@
     <nav class="w-full">
       <ul class="flex mx-auto justify-around">
         <li v-for="link in allowedRoutes" :key="link">
-          <router-link :to="{ name: link }">{{ link }}</router-link>
+          <routerLink :to="{ name: link }">{{ link }}</routerLink>
         </li>
       </ul>
     </nav>

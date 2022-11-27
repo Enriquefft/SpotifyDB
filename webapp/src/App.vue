@@ -3,9 +3,7 @@ import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
 import FooterBar from "./components/FooterBar.vue";
 import { routes } from "@/router/index";
-</script>
 
-<script lang="ts">
 let accessRoutes = routes.map((route) => {
   return { name: route.name, restrictions: route.restrictions };
 });

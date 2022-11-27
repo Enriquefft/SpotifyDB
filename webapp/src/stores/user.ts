@@ -3,7 +3,7 @@ import { ref } from "vue";
 import type { Ref } from "vue";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function parseString(str: string | null): string[] {
+function stringToArray(str: string | null): string[] {
   if (str === null) {
     return [];
   }
@@ -18,7 +18,6 @@ interface data {
 
 export const useUserStore = defineStore("user", () => {
   // Read remember_user
-  const remember_user: Ref<boolean | undefined> = ref(undefined);
   const username: Ref<string | null> = ref(null);
   const logged_in: Ref<boolean> = ref(true); // Ease of use function
   const permits: Ref<string[]> = ref(["unlogged"]);
@@ -32,13 +31,13 @@ export const useUserStore = defineStore("user", () => {
   switch (remember_user.value) {
     case true:
       username.value = localStorage.getItem("username");
-      permits.value = parseString(localStorage.getItem("permits"));
+      permits.value = stringToArray(localStorage.getItem("permits"));
       access_token.value = localStorage.getItem("access_token");
       break;
 
     case false:
       username.value = sessionStorage.getItem("username");
-      permits.value = parseString(sessionStorage.getItem("permits"));
+      permits.value = stringToArray(sessionStorage.getItem("permits"));
       access_token.value = sessionStorage.getItem("access_token");
       break;
 
