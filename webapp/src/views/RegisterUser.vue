@@ -1,31 +1,3 @@
-<script lang="ts" setup>
-import { useUserStore } from "@/stores/user";
-import { ref } from "vue";
-import type { Ref } from "vue";
-import { API_LOCATION } from "@/../config";
-
-const username: Ref<string> = ref("");
-const password: string = "";
-
-function register() {
-  console.log(password);
-  fetch(API_LOCATION, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: username.value,
-      password: password,
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      const user = useUserStore();
-      user.login(data);
-    })
-    // catch errors
-    .catch((error) => console.error(error));
-}
-</script>
 <template>
   <form @submit.prevent="register">
     <label for="username">Username</label>
@@ -52,7 +24,7 @@ function register() {
       minlength="8"
     />
     <br />
-    <button type="submit">Login</button>
+    <button type="submit">Register</button>
     <br />
     <br />
 
@@ -61,4 +33,41 @@ function register() {
   </form>
 </template>
 
-<style></style>
+<script lang="ts" setup>
+import { useUserStore } from "@/stores/user";
+import { ref } from "vue";
+import type { Ref } from "vue";
+import { API_LOCATION } from "@/../config";
+
+const username: Ref<string> = ref("");
+const password: Ref<string> = ref("");
+
+function register() {
+  console.log(password);
+  fetch(API_LOCATION + "/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value,
+    }),
+  })
+    // if not ok
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const user = useUserStore();
+      user.login(data);
+    });
+}
+</script>
+
+<style>
+input {
+  color: black;
+}
+</style>

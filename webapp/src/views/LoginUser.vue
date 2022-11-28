@@ -38,7 +38,7 @@ const password: Ref<string> = ref("");
 const rememberMe: Ref<boolean> = ref(false);
 
 async function login() {
-  await fetch(API_LOCATION, {
+  await fetch(API_LOCATION + "/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -63,3 +63,9 @@ async function login() {
     .catch((error) => console.error(error));
 }
 </script>
+
+<style>
+input {
+  color: black;
+}
+</style>

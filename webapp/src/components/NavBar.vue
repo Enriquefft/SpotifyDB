@@ -14,12 +14,15 @@
       </ul>
     </nav>
 
+    <div v-if="!userStore.isAuthorized">
+      <button @click="authorize">authorize</button>
+    </div>
     <!--logout-->
-    <div v-if="userStore.logged_in" class="right-0 flex">
+    <div v-if="userStore.isLoggedIn" class="right-0 flex">
       <button @click="userStore.logout">Logout</button>
     </div>
 
-    <div class="right-0 flex">
+    <div v-if="userStore.isAuthorized" class="right-0 flex">
       <button>Send Query</button>
 
       <a>
@@ -35,6 +38,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useUserStore } from "@/stores/user";
+import { API_LOCATION } from "@/../config";
+
 const userStore = useUserStore();
 
 type Link = {
@@ -54,4 +59,29 @@ const allowedRoutes = computed(() => {
     })
     .map((link) => link.name);
 });
+
+function authorize() {
+  console.log("authorizing");
+  fetch(`${API_LOCATION}/authorize`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userStore.access_token}`,
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error("Authorization failed");
+      }
+    })
+    .then((data) => {
+      console.log(data.redirect);
+      window.location.href = data.redirect;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 </script>

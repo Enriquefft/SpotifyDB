@@ -4,7 +4,7 @@ def GenerateState():
     from random import choice
     chars = ascii_letters + digits
     return ''.join(choice(chars) for _ in range(16))
-    
+
 
 def authorize():
 
@@ -19,11 +19,11 @@ def authorize():
     print(auth_query_parameters.get("redirect_uri"))
     url_args = urlencode(auth_query_parameters)
 
-    
     auth_url = f"{SPOTIFY_AUTH_URL}/?{url_args}"
 
     from flask import redirect
     return redirect(auth_url)
+
 
 def callback():
     from flask import request
@@ -37,7 +37,6 @@ def callback():
 
     # Succes
     code = request.args.get('code', None)
-
 
     from .auth_consts import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
     request_body = {
@@ -53,8 +52,8 @@ def callback():
     }
 
     from requests import post
-    post_request = post("https://accounts.spotify.com/api/token", data=request_body, headers=request_headers)
-
+    post_request = post("https://accounts.spotify.com/api/token",
+                        data=request_body, headers=request_headers)
 
     from json import loads
     response = loads(post_request.text)
@@ -62,17 +61,16 @@ def callback():
     if post_request.status_code != 200:
         raise Exception("Error")
 
-
-
     from flask import session
     session['access_token'] = response['access_token']
-    authorization_header = {"Authorization": "Bearer {}".format(session['access_token'])}
-
+    authorization_header = {
+        "Authorization": "Bearer {}".format(session['access_token'])}
 
     from .spotify_api import SPOTIFY_API_URL
     user_profile_api_endpoint = f"{SPOTIFY_API_URL}/me"
     from requests import get
-    profile_response = get(user_profile_api_endpoint, headers=authorization_header)
+    profile_response = get(user_profile_api_endpoint,
+                           headers=authorization_header)
     from json import loads
     profile_data = loads(profile_response.text)
 
@@ -86,7 +84,6 @@ def callback():
     current_user.img_url = profile_data['images'][0]['url']
 
     current_user.update()
-
 
     from flask import url_for, redirect
     return redirect(url_for('home.index'))
