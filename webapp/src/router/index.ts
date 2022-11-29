@@ -25,6 +25,13 @@ export const routes = [
     component: () => import("@/views/RegisterUser.vue"),
     restrictions: ["unlogged"],
   },
+  /*
+  {
+    path: "/playlist/:name",
+    name: "playlist",
+    component: () => import("@/views/PlaylistView.vue"),
+  },
+  */
 ];
 
 const router = createRouter({

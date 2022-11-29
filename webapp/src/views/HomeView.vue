@@ -1,53 +1,59 @@
+<template>
+  <span v-if="userStore.isLoggedIn"> USER IS LOGGED IN</span>
+  <!--<PlaylistList v-bind="playLists"></PlaylistList>-->
+  <div class="flex">
+    <PlayList
+      id="69ts0XXLotPGTe9QV2410q"
+      name="my shazams"
+      imgUrl="stock photo"
+    />
+    <PlayList
+      id="3nP9lqFEry1vK60CJwESQg"
+      name="villain songs"
+      imgUrl="stock photo"
+    />
+  </div>
+</template>
+
 <script setup lang="ts">
-import PlayListVue from "../components/PlayList.vue";
+import PlayList from "@/components/PlayList.vue";
+import PlaylistList from "../components/PlaylistList.vue";
 import { useUserStore } from "../stores/user";
+import type { Ref } from "vue";
+import { ref } from "vue";
+import { API_LOCATION } from "@/../config";
 
 const userStore = useUserStore();
 
-type TrackItem = {
-  images: string[];
-  name: string;
-  artists: { name: string; url?: string }[];
-  url: string;
-  id: string;
-};
+const playLists: Ref<{
+  playlists: {
+    name: string;
+    url: string;
+    images: string[];
+    id: string;
+  }[];
+  size: number;
+}> = ref({ playlists: [], size: 0 });
 
-const playList: {
-  imgUrl: string;
-  name: string;
-  trackItems: TrackItem[];
-  id: string;
-} = {
-  imgUrl: "https://picsum.photos/200/300",
-  name: "PlayList",
-  trackItems: [
-    {
-      images: ["https://picsum.photos/200/300"],
-      name: "Track 1",
-      artists: [{ name: "Artist 1" }],
-      url: "https://picsum.photos/200/300",
-      id: "1",
+fetchPlaylists();
+console.log(`${API_LOCATION}/playlists`);
+function fetchPlaylists() {
+  fetch(`${API_LOCATION}/playlists`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${userStore.access_token}`,
     },
-    {
-      images: ["https://picsum.photos/200/300"],
-      name: "Track 2",
-      artists: [{ name: "Artist 2" }],
-      url: "https://picsum.photos/200/300",
-      id: "2",
-    },
-    {
-      images: ["https://picsum.photos/200/300"],
-      name: "Track 3",
-      artists: [{ name: "Artist 3" }],
-      url: "https://picsum.photos/200/300",
-      id: "3",
-    },
-  ],
-  id: "playlist_id",
-};
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      playLists.value = data;
+    })
+    .catch((error) => console.log(error));
+}
 </script>
-
-<template>
-  <span v-if="userStore.isLoggedIn"> USER IS LOGGED IN</span>
-  <PlayListVue v-bind="playList"></PlayListVue>
-</template>
